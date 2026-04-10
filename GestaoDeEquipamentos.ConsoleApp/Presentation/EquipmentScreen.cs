@@ -70,10 +70,6 @@ class EquipmentScreen
     string linha = GetUILine();
     int largura = linha.Length;
 
-    Console.WriteLine(linha);
-    Console.WriteLine("--------------------- Gestão de Equipamentos ----------------------");
-    Console.WriteLine(linha);
-
     int espacos = (largura - operation.Length) / 2;
     string textoCentralizado = new string(' ', espacos) + operation;
 
