@@ -1,6 +1,8 @@
+namespace GestaoDeEquipamentos.ConsoleApp.Domain;
+
 class Equipment
 {
-  public int id;
+  public string id;
   public string? name;
   public string? manufacturer;
   public decimal purchasePrice;
