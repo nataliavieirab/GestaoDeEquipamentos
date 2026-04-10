@@ -42,6 +42,19 @@ class EquipmentScreen
     Console.ReadLine();
   }
 
+  public string GetMainMenuOption()
+  {
+    ShowMainHeader();
+    Console.WriteLine("1 - Cadastrar equipamento");
+    Console.WriteLine("2 - Editar equipamento");
+    Console.WriteLine("3 - Excluir equipamento");
+    Console.WriteLine("4 - Visualizar equipamentos");
+    Console.WriteLine("S - Sair");
+    Console.WriteLine("-------------------------------------------------------------------");
+    Console.Write("> ");
+
+    return Console.ReadLine()?.ToUpper()!;
+  }
   bool isStringValid(string s)
   {
     bool isStringFilled = !string.IsNullOrWhiteSpace(s);
@@ -52,9 +65,9 @@ class EquipmentScreen
 
   void ShowOperationHeader(string operation)
   {
-    Console.Clear();
+    ShowMainHeader();
 
-    string linha = "===================================================================";
+    string linha = GetUILine();
     int largura = linha.Length;
 
     Console.WriteLine(linha);
@@ -66,5 +79,21 @@ class EquipmentScreen
 
     Console.WriteLine(textoCentralizado);
     Console.WriteLine("-------------------------------------------------------------------");
+  }
+
+  void ShowMainHeader()
+  {
+    Console.Clear();
+
+    string line = GetUILine();
+
+    Console.WriteLine(line);
+    Console.WriteLine("--------------------- Gestão de Equipamentos ----------------------");
+    Console.WriteLine(line);
+  }
+
+  string GetUILine()
+  {
+    return "===================================================================";
   }
 }

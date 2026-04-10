@@ -4,43 +4,20 @@ EquipmentScreen equipmentScreen = new EquipmentScreen();
 
 while (true)
 {
-  Console.Clear();
-  Console.WriteLine("=================================");
-  Console.WriteLine("----- Gestão de Equipamentos ----");
-  Console.WriteLine("=================================");
-  Console.WriteLine("1 - Cadastrar equipamento");
-  Console.WriteLine("2 - Editar equipamento");
-  Console.WriteLine("3 - Excluir equipamento");
-  Console.WriteLine("4 - Visualizar equipamentos");
-  Console.WriteLine("S - Sair");
-  Console.WriteLine("---------------------------------");
-  Console.Write("> ");
-  string? opcaoMenu = Console.ReadLine()?.ToUpper();
 
+  string menuOption = equipmentScreen.GetMainMenuOption();
 
-  if (opcaoMenu == "S")
+  if (menuOption == "S")
   {
     Console.Clear();
     break;
   }
 
-  if (opcaoMenu == "1")
-  {
-    equipmentScreen.Register();
-  }
+  if (menuOption == "1") equipmentScreen.Register();
 
-  else if (opcaoMenu == "2")
-  {
+  else if (menuOption == "2") ;
 
-  }
+  else if (menuOption == "3") ;
 
-  else if (opcaoMenu == "3")
-  {
-
-  }
-
-  else if (opcaoMenu == "4")
-  {
-
-  }
+  else if (menuOption == "4") ;
 }
