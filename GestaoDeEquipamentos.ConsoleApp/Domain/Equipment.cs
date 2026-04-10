@@ -7,5 +7,4 @@ class Equipment
   public string? manufacturer;
   public decimal purchasePrice;
   public DateTime manufactoringDate;
-
 }
