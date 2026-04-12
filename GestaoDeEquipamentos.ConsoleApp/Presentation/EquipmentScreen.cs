@@ -35,10 +35,10 @@ class EquipmentScreen
 
     repository.Create(newEquipment);
 
-    Console.WriteLine("-------------------------------------------------------------------");
+    Console.WriteLine("--------------------------------------------------------------------------------------------");
     Console.WriteLine($"✅ O equipamento \"{newEquipment.id}\" foi cadastrado com sucesso.");
-    Console.WriteLine("-------------------------------------------------------------------");
-    Console.WriteLine("Digite ENTER para continuar...");
+    Console.WriteLine("--------------------------------------------------------------------------------------------");
+    Console.Write("\nDigite ENTER para continuar...");
     Console.ReadLine();
   }
 
@@ -52,11 +52,14 @@ class EquipmentScreen
 
     do
     {
-      Console.Write("\nDigite o id do equipamento que deseja editar: ");
+      Console.Write("• Digite o id do equipamento que deseja editar: ");
       selectedId = Console.ReadLine();
 
       if (!string.IsNullOrWhiteSpace(selectedId) && selectedId.Length == 7)
+      {
+        Console.WriteLine("--------------------------------------------------------------------------------------------");
         break;
+      }
     } while (true);
 
     do
@@ -85,18 +88,18 @@ class EquipmentScreen
 
     if (success)
     {
-      Console.WriteLine("-------------------------------------------------------------------");
-      Console.WriteLine($"O registro \"{selectedId}\" foi editado com sucesso.");
-      Console.WriteLine("-------------------------------------------------------------------");
+      Console.WriteLine("--------------------------------------------------------------------------------------------");
+      Console.WriteLine($"✅ O registro \"{selectedId}\" foi editado com sucesso.");
+      Console.WriteLine("--------------------------------------------------------------------------------------------");
     }
     else
     {
-      Console.WriteLine("-------------------------------------------------------------------");
+      Console.WriteLine("--------------------------------------------------------------------------------------------");
       Console.WriteLine($"Não foi possível encontrar o equipamento informado.");
-      Console.WriteLine("-------------------------------------------------------------------");
+      Console.WriteLine("--------------------------------------------------------------------------------------------");
     }
 
-    Console.WriteLine("Digite ENTER para continuar...");
+    Console.Write("\nDigite ENTER para continuar...");
     Console.ReadLine();
   }
 
@@ -110,7 +113,7 @@ class EquipmentScreen
 
     do
     {
-      Console.Write("\nDigite o id do equipamento que deseja excluir: ");
+      Console.Write("• Digite o id do equipamento que deseja excluir: ");
       selectedId = Console.ReadLine();
 
       if (!string.IsNullOrWhiteSpace(selectedId) && selectedId.Length == 7)
@@ -121,18 +124,18 @@ class EquipmentScreen
 
     if (success)
     {
-      Console.WriteLine("-------------------------------------------------------------------");
-      Console.WriteLine($"O registro \"{selectedId}\" foi excluído com sucesso.");
-      Console.WriteLine("-------------------------------------------------------------------");
+      Console.WriteLine("--------------------------------------------------------------------------------------------");
+      Console.WriteLine($"✅ O registro \"{selectedId}\" foi excluído com sucesso.");
+      Console.WriteLine("--------------------------------------------------------------------------------------------");
     }
     else
     {
-      Console.WriteLine("-------------------------------------------------------------------");
+      Console.WriteLine("--------------------------------------------------------------------------------------------");
       Console.WriteLine($"Não foi possível encontar o registro \"{selectedId}\".");
-      Console.WriteLine("-------------------------------------------------------------------");
+      Console.WriteLine("--------------------------------------------------------------------------------------------");
     }
 
-    Console.Write("Digite ENTER para continuar...");
+    Console.Write("\nDigite ENTER para continuar...");
     Console.ReadLine();
   }
 
@@ -141,14 +144,15 @@ class EquipmentScreen
     ShowOperationHeader("Visualização de Equipamentos");
     ShowAllUI();
 
-    Console.Write("Digite ENTER para continuar...");
+    Console.Write("\nDigite ENTER para continuar...");
     Console.ReadLine();
   }
 
   public void ShowAllUI()
   {
+    Console.WriteLine("============================================================================================");
     Console.WriteLine(
-    "\n{0, -7} | {1, -15} | {2, -15} | {3, -22} | {4, -10}",
+    "{0, -7} | {1, -15} | {2, -15} | {3, -22} | {4, -10}",
     "Id", "Nome", "Fabricante", "Preço de Aquisição", "Data de Fabricação");
 
     Equipment[] equipments = repository.GetAll().ToArray();
@@ -166,7 +170,7 @@ class EquipmentScreen
       );
     }
 
-    Console.WriteLine("-------------------------------------------------------------------");
+    Console.WriteLine("============================================================================================");
   }
 
   public string GetMainMenuOption()
@@ -177,7 +181,7 @@ class EquipmentScreen
     Console.WriteLine("3 - Excluir equipamento");
     Console.WriteLine("4 - Visualizar equipamentos");
     Console.WriteLine("S - Sair");
-    Console.WriteLine("-------------------------------------------------------------------");
+    Console.WriteLine("--------------------------------------------------------------------------------------------");
     Console.Write("> ");
 
     return Console.ReadLine()?.ToUpper()!;
@@ -202,7 +206,7 @@ class EquipmentScreen
     string textoCentralizado = new string(' ', espacos) + operation;
 
     Console.WriteLine(textoCentralizado);
-    Console.WriteLine("-------------------------------------------------------------------");
+    Console.WriteLine("--------------------------------------------------------------------------------------------");
   }
 
   void ShowMainHeader()
@@ -212,14 +216,12 @@ class EquipmentScreen
     string line = GetUILine();
 
     Console.WriteLine(line);
-    Console.WriteLine("--------------------- Gestão de Equipamentos ----------------------");
+    Console.WriteLine("--------------------------------- Gestão de Equipamentos -----------------------------------");
     Console.WriteLine(line);
   }
 
   string GetUILine()
   {
-    return "===================================================================";
+    return "============================================================================================";
   }
-
-
 }
