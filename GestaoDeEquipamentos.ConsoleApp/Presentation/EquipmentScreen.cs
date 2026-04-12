@@ -46,9 +46,7 @@ class EquipmentScreen
   {
     ShowOperationHeader("Edição de Equipamento");
 
-    List<Equipment> _equipments = repository.GetAll();
-
-    ShowAll(_equipments);
+    ShowAllUI();
 
     string? selectedId, name, manufacturer;
 
@@ -106,9 +104,7 @@ class EquipmentScreen
   {
     ShowOperationHeader("Exclusão de Equipamento");
 
-    List<Equipment> _equipments = repository.GetAll();
-
-    ShowAll(_equipments);
+    ShowAllUI();
 
     string? selectedId;
 
@@ -138,6 +134,39 @@ class EquipmentScreen
 
     Console.Write("Digite ENTER para continuar...");
     Console.ReadLine();
+  }
+
+  public void ShowAll()
+  {
+    ShowOperationHeader("Visualização de Equipamentos");
+    ShowAllUI();
+
+    Console.Write("Digite ENTER para continuar...");
+    Console.ReadLine();
+  }
+
+  public void ShowAllUI()
+  {
+    Console.WriteLine(
+    "\n{0, -7} | {1, -15} | {2, -15} | {3, -22} | {4, -10}",
+    "Id", "Nome", "Fabricante", "Preço de Aquisição", "Data de Fabricação");
+
+    Equipment[] equipments = repository.GetAll().ToArray();
+
+    for (int i = 0; i < equipments.Length; i++)
+    {
+      Equipment? e = equipments[i];
+
+      if (e == null)
+        continue;
+
+      Console.WriteLine(
+          "{0, -7} | {1, -15} | {2, -15} | {3, -22} | {4, -10}",
+          e.id, e.name, e.manufacturer, e.purchasePrice.ToString("C2"), e.manufactoringDate.ToShortDateString()
+      );
+    }
+
+    Console.WriteLine("-------------------------------------------------------------------");
   }
 
   public string GetMainMenuOption()
@@ -192,27 +221,5 @@ class EquipmentScreen
     return "===================================================================";
   }
 
-  void ShowAll(List<Equipment> equipments)
-  {
-    Console.WriteLine(
-    "\n{0, -7} | {1, -15} | {2, -15} | {3, -22} | {4, -10}",
-    "Id", "Nome", "Fabricante", "Preço de Aquisição", "Data de Fabricação");
 
-    Equipment[] _equipments = equipments.ToArray();
-
-    for (int i = 0; i < _equipments.Length; i++)
-    {
-      Equipment? e = equipments[i];
-
-      if (e == null)
-        continue;
-
-      Console.WriteLine(
-          "{0, -7} | {1, -15} | {2, -15} | {3, -22} | {4, -10}",
-          e.id, e.name, e.manufacturer, e.purchasePrice.ToString("C2"), e.manufactoringDate.ToShortDateString()
-      );
-    }
-
-    Console.WriteLine("-------------------------------------------------------------------");
-  }
 }
