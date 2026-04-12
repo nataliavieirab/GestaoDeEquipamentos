@@ -14,4 +14,24 @@ class EquipmentRepository
 
     equipments.Add(newEquipment);
   }
+
+  public bool Update(string selectedId, string newName,
+      string newManufacturer, decimal newPurchasePrice, DateTime newManufactoringDate)
+  {
+    Equipment equipment = equipments.Find(e => e.id == selectedId)!;
+
+    if (equipment == null) return false;
+
+    equipment.name = newName;
+    equipment.manufacturer = newManufacturer;
+    equipment.purchasePrice = newPurchasePrice;
+    equipment.manufactoringDate = newManufactoringDate;
+
+    return true;
+  }
+
+  public List<Equipment> GetAll()
+  {
+    return equipments;
+  }
 }

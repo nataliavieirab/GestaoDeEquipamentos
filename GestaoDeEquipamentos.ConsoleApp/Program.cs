@@ -15,7 +15,7 @@ while (true)
 
   if (menuOption == "1") equipmentScreen.Register();
 
-  else if (menuOption == "2") ;
+  else if (menuOption == "2") equipmentScreen.Edit();
 
   else if (menuOption == "3") ;
 
