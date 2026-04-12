@@ -15,8 +15,7 @@ class EquipmentRepository
     equipments.Add(newEquipment);
   }
 
-  public bool Update(string selectedId, string newName,
-      string newManufacturer, decimal newPurchasePrice, DateTime newManufactoringDate)
+  public bool Update(string selectedId, string newName, string newManufacturer, decimal newPurchasePrice, DateTime newManufactoringDate)
   {
     Equipment equipment = equipments.Find(e => e.id == selectedId)!;
 
@@ -26,6 +25,18 @@ class EquipmentRepository
     equipment.manufacturer = newManufacturer;
     equipment.purchasePrice = newPurchasePrice;
     equipment.manufactoringDate = newManufactoringDate;
+
+    return true;
+  }
+
+  public bool Delete(string equipmentId)
+  {
+    Equipment equipment = equipments.Find(e => e.id == equipmentId)!;
+
+    if (equipment == null)
+      return false;
+
+    equipments.Remove(equipment);
 
     return true;
   }

@@ -41,6 +41,7 @@ class EquipmentScreen
     Console.WriteLine("Digite ENTER para continuar...");
     Console.ReadLine();
   }
+
   public void Edit()
   {
     ShowOperationHeader("Edição de Equipamento");
@@ -84,24 +85,59 @@ class EquipmentScreen
 
     bool success = repository.Update(selectedId, name!, manufacturer!, purchasePrice, manufactoringDate);
 
-    if (!success)
+    if (success)
+    {
+      Console.WriteLine("-------------------------------------------------------------------");
+      Console.WriteLine($"O registro \"{selectedId}\" foi editado com sucesso.");
+      Console.WriteLine("-------------------------------------------------------------------");
+    }
+    else
     {
       Console.WriteLine("-------------------------------------------------------------------");
       Console.WriteLine($"Não foi possível encontrar o equipamento informado.");
       Console.WriteLine("-------------------------------------------------------------------");
-      Console.WriteLine("-------------------------------------------------------------------");
-      Console.WriteLine("Digite ENTER para continuar...");
-      Console.ReadLine();
-      return;
     }
 
-    Console.WriteLine("-------------------------------------------------------------------");
-    Console.WriteLine($"O registro \"{selectedId}\" foi editado com sucesso.");
-    Console.WriteLine("-------------------------------------------------------------------");
     Console.WriteLine("Digite ENTER para continuar...");
     Console.ReadLine();
+  }
 
+  public void Delete()
+  {
+    ShowOperationHeader("Exclusão de Equipamento");
 
+    List<Equipment> _equipments = repository.GetAll();
+
+    ShowAll(_equipments);
+
+    string? selectedId;
+
+    do
+    {
+      Console.Write("\nDigite o id do equipamento que deseja excluir: ");
+      selectedId = Console.ReadLine();
+
+      if (!string.IsNullOrWhiteSpace(selectedId) && selectedId.Length == 7)
+        break;
+    } while (true);
+
+    bool success = repository.Delete(selectedId);
+
+    if (success)
+    {
+      Console.WriteLine("-------------------------------------------------------------------");
+      Console.WriteLine($"O registro \"{selectedId}\" foi excluído com sucesso.");
+      Console.WriteLine("-------------------------------------------------------------------");
+    }
+    else
+    {
+      Console.WriteLine("-------------------------------------------------------------------");
+      Console.WriteLine($"Não foi possível encontar o registro \"{selectedId}\".");
+      Console.WriteLine("-------------------------------------------------------------------");
+    }
+
+    Console.Write("Digite ENTER para continuar...");
+    Console.ReadLine();
   }
 
   public string GetMainMenuOption()

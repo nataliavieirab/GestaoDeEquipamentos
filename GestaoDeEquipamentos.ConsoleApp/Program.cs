@@ -17,7 +17,7 @@ while (true)
 
   else if (menuOption == "2") equipmentScreen.Edit();
 
-  else if (menuOption == "3") ;
+  else if (menuOption == "3") equipmentScreen.Delete();
 
   else if (menuOption == "4") ;
 }
