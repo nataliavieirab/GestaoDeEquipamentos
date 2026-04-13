@@ -11,13 +11,15 @@ EquipmentScreen equipmentScreen = new()
   screenUtils = screenUtils
 };
 
+TicketRepository ticketRepository = new();
 TicketScreen ticketScreen = new()
 {
   screenUtils = screenUtils,
   equipmentScreen = equipmentScreen,
   equipmentRepository = equipmentRepository,
-  repository = new TicketRepository(),
+  repository = ticketRepository,
 };
+
 
 //Dados Teste
 Equipment equipment = new()
@@ -36,12 +38,20 @@ Equipment equipment2 = new()
   manufactoringDate = DateTime.Now.AddYears(-4)
 };
 
+Ticket ticket = new()
+{
+  title = "Quebrou o display",
+  description = "Está com deadpixel",
+  openDate = DateTime.Now.AddDays(-7),
+  equipment = equipment,
+};
+
 equipmentRepository.Create(equipment);
 equipmentRepository.Create(equipment2);
+ticketRepository.Create(ticket);
 
 while (true)
 {
-
   string mainMenuOption = screenUtils.GetMainMenuOption();
 
   if (mainMenuOption == "S")
@@ -81,11 +91,11 @@ while (true)
 
     if (menuOption == "1") ticketScreen.Register();
 
-    // else if (menuOption == "2") ticketScreen.Edit();
+    else if (menuOption == "2") ticketScreen.Edit();
 
     // else if (menuOption == "3") ticketScreen.Delete();
 
-    // else if (menuOption == "4") ticketScreen.ShowAll();
+    else if (menuOption == "4") ticketScreen.ShowAll();
 
   }
 }
