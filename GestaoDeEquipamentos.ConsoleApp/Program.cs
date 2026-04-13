@@ -1,8 +1,43 @@
-﻿using GestaoDeEquipamentos.ConsoleApp.Presentation;
+﻿using GestaoDeEquipamentos.ConsoleApp.Domain;
+using GestaoDeEquipamentos.ConsoleApp.Infra;
+using GestaoDeEquipamentos.ConsoleApp.Presentation;
 
-ScreenUtils screenUtils = new ScreenUtils();
-EquipmentScreen equipmentScreen = new EquipmentScreen();
-TicketScreen ticketScreen = new TicketScreen();
+ScreenUtils screenUtils = new();
+
+EquipmentRepository equipmentRepository = new();
+EquipmentScreen equipmentScreen = new()
+{
+  repository = equipmentRepository,
+  screenUtils = screenUtils
+};
+
+TicketScreen ticketScreen = new()
+{
+  screenUtils = screenUtils,
+  equipmentScreen = equipmentScreen,
+  equipmentRepository = equipmentRepository,
+  repository = new TicketRepository(),
+};
+
+//Dados Teste
+Equipment equipment = new()
+{
+  name = "Notebook",
+  manufacturer = "Acer",
+  purchasePrice = 2000,
+  manufactoringDate = DateTime.Now.AddYears(-5)
+};
+
+Equipment equipment2 = new()
+{
+  name = "Monitor",
+  manufacturer = "LG",
+  purchasePrice = 1200,
+  manufactoringDate = DateTime.Now.AddYears(-4)
+};
+
+equipmentRepository.Create(equipment);
+equipmentRepository.Create(equipment2);
 
 while (true)
 {
@@ -44,7 +79,7 @@ while (true)
       break;
     }
 
-    // if (menuOption == "1") ticketScreen.Register();
+    if (menuOption == "1") ticketScreen.Register();
 
     // else if (menuOption == "2") ticketScreen.Edit();
 
