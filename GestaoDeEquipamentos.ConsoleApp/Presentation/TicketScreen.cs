@@ -92,19 +92,59 @@ class TicketScreen
 
     bool success = repository.Update(selectedId, newTicket);
 
-    if (!success)
+    if (success)
     {
       screenUtils.ShowUISimpleLine();
-      Console.WriteLine($"Não foi possível editar o chamado informado.");
+      Console.WriteLine($"✅ O registro \"{selectedId}\" foi editado com sucesso.");
+      screenUtils.ShowUISimpleLine();
+    }
+    else
+    {
+      screenUtils.ShowUISimpleLine();
+      Console.WriteLine($"Não foi possível editar o chamado \"{selectedId}\".");
       screenUtils.ShowUISimpleLine();
       return;
     }
 
-    screenUtils.ShowUISimpleLine();
-    Console.WriteLine($"✅ O registro \"{selectedId}\" foi editado com sucesso.");
-    screenUtils.ShowUISimpleLine();
-
     Console.WriteLine("Digite ENTER para continuar...");
+    Console.ReadLine();
+  }
+
+  public void Delete()
+  {
+    screenUtils.ShowMainHeader("Gestão de Chamados");
+    screenUtils.ShowOperationHeader("EXCLUSÃO DE CHAMADO");
+
+    ShowAllTickets();
+
+    string? selectedId;
+
+    do
+    {
+
+      Console.Write("\n>> Digite o id do chamado que deseja excluir: ");
+      selectedId = Console.ReadLine();
+
+      if (!string.IsNullOrWhiteSpace(selectedId) && selectedId.Length == 7) break;
+
+    } while (true);
+
+    bool success = repository.Delete(selectedId);
+
+    if (success)
+    {
+      screenUtils.ShowUISimpleLine();
+      Console.WriteLine($"✅ O chamado \"{selectedId}\" foi excluído com sucesso.");
+      screenUtils.ShowUISimpleLine();
+    }
+    else
+    {
+      screenUtils.ShowUISimpleLine();
+      Console.WriteLine($"Não foi possível excluir o chamado \"{selectedId}\".");
+      screenUtils.ShowUISimpleLine();
+    }
+
+    Console.Write("\nDigite ENTER para continuar...");
     Console.ReadLine();
   }
 

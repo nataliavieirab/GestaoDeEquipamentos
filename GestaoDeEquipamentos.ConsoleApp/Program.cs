@@ -93,7 +93,7 @@ while (true)
 
     else if (menuOption == "2") ticketScreen.Edit();
 
-    // else if (menuOption == "3") ticketScreen.Delete();
+    else if (menuOption == "3") ticketScreen.Delete();
 
     else if (menuOption == "4") ticketScreen.ShowAll();
 

@@ -27,6 +27,17 @@ class TicketRepository
     return true;
   }
 
+  public bool Delete(string ticketId)
+  {
+    Ticket ticket = tickets.Find(t => t.id == ticketId)!;
+
+    if (ticket == null)
+      return false;
+
+    tickets.Remove(ticket);
+
+    return true;
+  }
   public List<Ticket> FindAll()
   {
     return tickets;
