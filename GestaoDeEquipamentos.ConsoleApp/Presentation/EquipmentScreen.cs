@@ -74,11 +74,8 @@ public class EquipmentScreen
       Console.Write("• Digite o id do equipamento que deseja editar: ");
       selectedId = Console.ReadLine();
 
-      if (!string.IsNullOrWhiteSpace(selectedId) && selectedId.Length == 7)
-      {
-        screenUtils.ShowUISimpleLine();
-        break;
-      }
+      if (!string.IsNullOrWhiteSpace(selectedId) && selectedId.Length == 7) break;
+
     } while (true);
 
     do
@@ -172,11 +169,11 @@ public class EquipmentScreen
   public void ShowAllEquipments()
   {
     string line = screenUtils.GetUIDoubleLine();
+    Console.WriteLine($"\n{line}");
 
-    Console.WriteLine(line);
     Console.WriteLine(
     "{0, -7} | {1, -15} | {2, -15} | {3, -22} | {4, -10}",
-    "Id", "Nome", "Fabricante", "Preço de Aquisição", "Data de Fabricação");
+    "ID", "Nome", "Fabricante", "Preço de Aquisição", "Data de Fabricação");
 
     Equipment[] equipments = [.. repository.GetAll()];
 
