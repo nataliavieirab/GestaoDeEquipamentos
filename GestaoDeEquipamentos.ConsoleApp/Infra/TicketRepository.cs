@@ -14,5 +14,22 @@ class TicketRepository
     tickets.Add(newTicket);
   }
 
+  public bool Update(string selectedId, Ticket newTicket)
+  {
+    Ticket ticket = tickets.Find(t => t.id == selectedId)!;
+
+    if (ticket == null) return false;
+
+    ticket.title = newTicket.title;
+    ticket.description = newTicket.description;
+    ticket.equipment = newTicket.equipment;
+
+    return true;
+  }
+
+  public List<Ticket> FindAll()
+  {
+    return tickets;
+  }
 
 }
