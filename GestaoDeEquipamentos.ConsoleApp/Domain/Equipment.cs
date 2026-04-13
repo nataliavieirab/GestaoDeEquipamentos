@@ -1,6 +1,6 @@
 namespace GestaoDeEquipamentos.ConsoleApp.Domain;
 
-class Equipment
+public class Equipment
 {
   public string? id;
   public string? name;
