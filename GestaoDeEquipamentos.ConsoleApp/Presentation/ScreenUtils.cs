@@ -1,6 +1,6 @@
 namespace GestaoDeEquipamentos.ConsoleApp.Presentation;
 
-class ScreenUtils
+public class ScreenUtils
 {
   public string GetMainMenuOption()
   {
@@ -25,8 +25,6 @@ class ScreenUtils
 
   public void ShowOperationHeader(string operation)
   {
-    ShowMainHeader("Gestão de Equipamentos");
-
     string linha = GetUIDoubleLine();
     int largura = linha.Length;
 
