@@ -19,29 +19,34 @@ public class ScreenUtils
 
     Console.Clear();
     Console.WriteLine(line);
-    Console.WriteLine($"--------------------------------- {title} -----------------------------------");
+    Console.WriteLine($"--------------------------------------- {title} ------------------------------------------");
     Console.WriteLine(line);
   }
 
   public void ShowOperationHeader(string operation)
   {
-    string linha = GetUIDoubleLine();
-    int largura = linha.Length;
+    string textoCentralizado = new string(' ', 41) + operation;
 
-    int espacos = (largura - operation.Length) / 2;
-    string textoCentralizado = new string(' ', espacos) + operation;
-
-    Console.WriteLine(textoCentralizado);
-    ShowUISimpleLine();
+    Console.WriteLine($"\n{textoCentralizado}");
   }
+  // public void ShowOperationHeader(string operation)
+  // {
+  //   string linha = GetUIDoubleLine();
+  //   int largura = linha.Length;
+
+  //   int espacos = (largura - operation.Length) / 2;
+  //   string textoCentralizado = new string(' ', espacos) + operation;
+
+  //   Console.WriteLine(textoCentralizado);
+  // }
 
   public string GetUIDoubleLine()
   {
-    return "============================================================================================";
+    return "=========================================================================================================";
   }
 
   public void ShowUISimpleLine()
   {
-    Console.WriteLine("--------------------------------------------------------------------------------------------");
+    Console.WriteLine("---------------------------------------------------------------------------------------------------------");
   }
 }
