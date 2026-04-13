@@ -7,4 +7,11 @@ public class Ticket
   public string? description;
   public DateTime openDate;
   public Equipment? equipment;
+
+  public int GetElapsedDays()
+  {
+    TimeSpan timeDifference = DateTime.Now.Subtract(openDate);
+
+    return timeDifference.Days;
+  }
 }
