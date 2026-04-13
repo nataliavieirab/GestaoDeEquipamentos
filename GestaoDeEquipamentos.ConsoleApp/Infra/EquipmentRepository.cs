@@ -2,9 +2,10 @@ using System.Security.Cryptography;
 using GestaoDeEquipamentos.ConsoleApp.Domain;
 namespace GestaoDeEquipamentos.ConsoleApp.Infra;
 
-class EquipmentRepository
+public class EquipmentRepository
 {
   public List<Equipment> equipments = new List<Equipment>();
+
   public void Create(Equipment newEquipment)
   {
     newEquipment.id = Convert
@@ -44,5 +45,10 @@ class EquipmentRepository
   public List<Equipment> GetAll()
   {
     return equipments;
+  }
+
+  public Equipment FindById(string equipmentId)
+  {
+    return equipments.Find(e => e.id == equipmentId)!;
   }
 }
