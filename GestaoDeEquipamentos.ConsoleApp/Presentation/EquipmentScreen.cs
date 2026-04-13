@@ -5,9 +5,24 @@ namespace GestaoDeEquipamentos.ConsoleApp.Presentation;
 class EquipmentScreen
 {
   EquipmentRepository repository = new EquipmentRepository();
+  ScreenUtils screenUtils = new ScreenUtils();
+  public string GetMenuOption()
+  {
+    screenUtils.ShowMainHeader("Gestão de Equipamentos");
+    Console.WriteLine("1 - Cadastrar equipamento");
+    Console.WriteLine("2 - Editar equipamento");
+    Console.WriteLine("3 - Excluir equipamento");
+    Console.WriteLine("4 - Visualizar equipamentos");
+    Console.WriteLine("S - Sair");
+    screenUtils.ShowUISimpleLine();
+    Console.Write("> ");
+
+    return Console.ReadLine()?.ToUpper()!;
+  }
+
   public void Register()
   {
-    ShowOperationHeader("Cadastro de Equipamento");
+    screenUtils.ShowOperationHeader("Cadastro de Equipamento");
 
     Equipment newEquipment = new Equipment();
 
@@ -35,18 +50,19 @@ class EquipmentScreen
 
     repository.Create(newEquipment);
 
-    Console.WriteLine("--------------------------------------------------------------------------------------------");
+    screenUtils.ShowUISimpleLine();
     Console.WriteLine($"✅ O equipamento \"{newEquipment.id}\" foi cadastrado com sucesso.");
-    Console.WriteLine("--------------------------------------------------------------------------------------------");
+    screenUtils.ShowUISimpleLine();
+
     Console.Write("\nDigite ENTER para continuar...");
     Console.ReadLine();
   }
 
   public void Edit()
   {
-    ShowOperationHeader("Edição de Equipamento");
+    screenUtils.ShowOperationHeader("Edição de Equipamento");
 
-    ShowAllUI();
+    ShowAllEquipments();
 
     string? selectedId, name, manufacturer;
 
@@ -57,7 +73,8 @@ class EquipmentScreen
 
       if (!string.IsNullOrWhiteSpace(selectedId) && selectedId.Length == 7)
       {
-        Console.WriteLine("--------------------------------------------------------------------------------------------");
+        screenUtils.ShowUISimpleLine();
+        ;
         break;
       }
     } while (true);
@@ -88,15 +105,15 @@ class EquipmentScreen
 
     if (success)
     {
-      Console.WriteLine("--------------------------------------------------------------------------------------------");
+      screenUtils.ShowUISimpleLine();
       Console.WriteLine($"✅ O registro \"{selectedId}\" foi editado com sucesso.");
-      Console.WriteLine("--------------------------------------------------------------------------------------------");
+      screenUtils.ShowUISimpleLine();
     }
     else
     {
-      Console.WriteLine("--------------------------------------------------------------------------------------------");
+      screenUtils.ShowUISimpleLine();
       Console.WriteLine($"Não foi possível encontrar o equipamento informado.");
-      Console.WriteLine("--------------------------------------------------------------------------------------------");
+      screenUtils.ShowUISimpleLine();
     }
 
     Console.Write("\nDigite ENTER para continuar...");
@@ -105,9 +122,9 @@ class EquipmentScreen
 
   public void Delete()
   {
-    ShowOperationHeader("Exclusão de Equipamento");
+    screenUtils.ShowOperationHeader("Exclusão de Equipamento");
 
-    ShowAllUI();
+    ShowAllEquipments();
 
     string? selectedId;
 
@@ -124,15 +141,15 @@ class EquipmentScreen
 
     if (success)
     {
-      Console.WriteLine("--------------------------------------------------------------------------------------------");
+      screenUtils.ShowUISimpleLine();
       Console.WriteLine($"✅ O registro \"{selectedId}\" foi excluído com sucesso.");
-      Console.WriteLine("--------------------------------------------------------------------------------------------");
+      screenUtils.ShowUISimpleLine();
     }
     else
     {
-      Console.WriteLine("--------------------------------------------------------------------------------------------");
+      screenUtils.ShowUISimpleLine();
       Console.WriteLine($"Não foi possível encontar o registro \"{selectedId}\".");
-      Console.WriteLine("--------------------------------------------------------------------------------------------");
+      screenUtils.ShowUISimpleLine();
     }
 
     Console.Write("\nDigite ENTER para continuar...");
@@ -141,16 +158,18 @@ class EquipmentScreen
 
   public void ShowAll()
   {
-    ShowOperationHeader("Visualização de Equipamentos");
-    ShowAllUI();
+    screenUtils.ShowOperationHeader("Visualização de Equipamentos");
+    ShowAllEquipments();
 
     Console.Write("\nDigite ENTER para continuar...");
     Console.ReadLine();
   }
 
-  public void ShowAllUI()
+  public void ShowAllEquipments()
   {
-    Console.WriteLine("============================================================================================");
+    string line = screenUtils.GetUIDoubleLine();
+
+    Console.WriteLine(line);
     Console.WriteLine(
     "{0, -7} | {1, -15} | {2, -15} | {3, -22} | {4, -10}",
     "Id", "Nome", "Fabricante", "Preço de Aquisição", "Data de Fabricação");
@@ -170,21 +189,7 @@ class EquipmentScreen
       );
     }
 
-    Console.WriteLine("============================================================================================");
-  }
-
-  public string GetMainMenuOption()
-  {
-    ShowMainHeader();
-    Console.WriteLine("1 - Cadastrar equipamento");
-    Console.WriteLine("2 - Editar equipamento");
-    Console.WriteLine("3 - Excluir equipamento");
-    Console.WriteLine("4 - Visualizar equipamentos");
-    Console.WriteLine("S - Sair");
-    Console.WriteLine("--------------------------------------------------------------------------------------------");
-    Console.Write("> ");
-
-    return Console.ReadLine()?.ToUpper()!;
+    Console.WriteLine(line);
   }
 
   bool isStringValid(string s)
@@ -195,33 +200,4 @@ class EquipmentScreen
     return isStringFilled && isStringLengthValid;
   }
 
-  void ShowOperationHeader(string operation)
-  {
-    ShowMainHeader();
-
-    string linha = GetUILine();
-    int largura = linha.Length;
-
-    int espacos = (largura - operation.Length) / 2;
-    string textoCentralizado = new string(' ', espacos) + operation;
-
-    Console.WriteLine(textoCentralizado);
-    Console.WriteLine("--------------------------------------------------------------------------------------------");
-  }
-
-  void ShowMainHeader()
-  {
-    Console.Clear();
-
-    string line = GetUILine();
-
-    Console.WriteLine(line);
-    Console.WriteLine("--------------------------------- Gestão de Equipamentos -----------------------------------");
-    Console.WriteLine(line);
-  }
-
-  string GetUILine()
-  {
-    return "============================================================================================";
-  }
 }
