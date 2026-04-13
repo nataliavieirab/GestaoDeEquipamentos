@@ -2,13 +2,14 @@ using GestaoDeEquipamentos.ConsoleApp.Domain;
 using GestaoDeEquipamentos.ConsoleApp.Infra;
 namespace GestaoDeEquipamentos.ConsoleApp.Presentation;
 
-class EquipmentScreen
+public class EquipmentScreen
 {
-  EquipmentRepository repository = new EquipmentRepository();
-  ScreenUtils screenUtils = new ScreenUtils();
+  public EquipmentRepository? repository;
+  public ScreenUtils? screenUtils;
+
   public string GetMenuOption()
   {
-    screenUtils.ShowMainHeader("Gestão de Equipamentos");
+    screenUtils!.ShowMainHeader("Gestão de Equipamentos");
     Console.WriteLine("1 - Cadastrar equipamento");
     Console.WriteLine("2 - Editar equipamento");
     Console.WriteLine("3 - Excluir equipamento");
@@ -22,6 +23,7 @@ class EquipmentScreen
 
   public void Register()
   {
+    screenUtils.ShowMainHeader("Gestão de Equipamentos");
     screenUtils.ShowOperationHeader("Cadastro de Equipamento");
 
     Equipment newEquipment = new Equipment();
@@ -60,6 +62,7 @@ class EquipmentScreen
 
   public void Edit()
   {
+    screenUtils.ShowMainHeader("Gestão de Equipamentos");
     screenUtils.ShowOperationHeader("Edição de Equipamento");
 
     ShowAllEquipments();
@@ -74,7 +77,6 @@ class EquipmentScreen
       if (!string.IsNullOrWhiteSpace(selectedId) && selectedId.Length == 7)
       {
         screenUtils.ShowUISimpleLine();
-        ;
         break;
       }
     } while (true);
@@ -122,6 +124,7 @@ class EquipmentScreen
 
   public void Delete()
   {
+    screenUtils.ShowMainHeader("Gestão de Equipamentos");
     screenUtils.ShowOperationHeader("Exclusão de Equipamento");
 
     ShowAllEquipments();
@@ -158,6 +161,7 @@ class EquipmentScreen
 
   public void ShowAll()
   {
+    screenUtils.ShowMainHeader("Gestão de Equipamentos");
     screenUtils.ShowOperationHeader("Visualização de Equipamentos");
     ShowAllEquipments();
 
@@ -174,7 +178,7 @@ class EquipmentScreen
     "{0, -7} | {1, -15} | {2, -15} | {3, -22} | {4, -10}",
     "Id", "Nome", "Fabricante", "Preço de Aquisição", "Data de Fabricação");
 
-    Equipment[] equipments = repository.GetAll().ToArray();
+    Equipment[] equipments = [.. repository.GetAll()];
 
     for (int i = 0; i < equipments.Length; i++)
     {
