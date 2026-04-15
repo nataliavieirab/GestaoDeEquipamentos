@@ -25,7 +25,7 @@ static class ScreenUtils
 
   public static void ShowOperationHeader(string operation)
   {
-    string textoCentralizado = new string(' ', 41) + operation;
+    string textoCentralizado = new string(' ', 38) + operation;
 
     Console.WriteLine($"\n{textoCentralizado}");
   }
