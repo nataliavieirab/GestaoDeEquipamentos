@@ -38,6 +38,80 @@ Como funcionário, Junior quer ter a possibilidade de excluir um equipamento que
 
 - A lista de equipamentos deve ser atualizada
 
+---
+
+## 2. Controle de Chamados
+
+#### Requisito 2.1:
+
+Como funcionário, Junior quer ter a possibilidade de registrar chamados de manutenção para os equipamentos.
+
+- Deve ter identificador único (id);
+- Deve ter um título do chamado;
+- Deve ter uma descrição do chamado;
+- Deve estar vinculado a um equipamento;
+- Deve ter uma data de abertura;
+
+#### Requisito 2.2:
+
+Como funcionário, Junior quer ter a possibilidade de visualizar todos os chamados registrados.
+
+- Deve mostrar o título do chamado;
+- Deve mostrar o equipamento;
+- Deve mostrar a data de abertura;
+- Deve mostrar o número de dias que o chamado está aberto;
+
+#### Requisito 2.3:
+
+Como funcionário, Junior quer ter a possibilidade de editar um chamado registrado, podendo alterar todos os campos.
+
+- Deve seguir os mesmos critérios do Requisito 2.1;
+
+#### Requisito 2.4:
+
+Como funcionário, Junior quer ter a possibilidade de excluir um chamado.
+
+- A lista de chamados deve ser atualizada após a exclusão;
+
+---
+
+## 3. Controle de Fabricantes
+
+#### Requisito 3.1:
+
+Como funcionário, Junior quer ter a possibilidade de registrar fabricantes.
+
+- Deve ter identificador único (id);
+- Deve ter o nome do fabricante;
+- Deve ter o email do fabricante;
+- Deve ter o telefone do fabricante;
+
+#### Requisito 3.2:
+
+Como funcionário, Junior quer ter a possibilidade de visualizar todos os fabricantes registrados.
+
+- Deve mostrar o nome do fabricante;
+- Deve mostrar o email do fabricante;
+- Deve mostrar o telefone do fabricante;
+- Deve mostrar a quantidade de equipamentos associados ao fabricante;
+
+#### Requisito 3.3:
+
+Como funcionário, Junior quer ter a possibilidade de editar um fabricante registrado, podendo alterar todos os campos.
+
+- Deve seguir os mesmos critérios do Requisito 3.1;
+
+#### Requisito 3.4:
+
+Como funcionário, Junior quer ter a possibilidade de excluir um fabricante.
+
+- A lista de fabricantes deve ser atualizada após a exclusão;
+
+#### Requisito 3.5:
+
+Como funcionário, Junior quer ter a possibilidade de cadastrar novos equipamentos informando o fabricante correspondente.
+
+
 ## Como utilizar
 
 1. Clone o repositório ou baixe o código fonte.
