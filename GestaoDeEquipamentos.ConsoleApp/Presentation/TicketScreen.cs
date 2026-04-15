@@ -3,31 +3,36 @@ using GestaoDeEquipamentos.ConsoleApp.Infra;
 
 namespace GestaoDeEquipamentos.ConsoleApp.Presentation;
 
-class TicketScreen
+public class TicketScreen
 {
-  public ScreenUtils screenUtils;
   public EquipmentScreen equipmentScreen;
   public EquipmentRepository equipmentRepository;
   public TicketRepository repository;
 
+  public TicketScreen(EquipmentScreen _equipmentScreen, EquipmentRepository _equipmentRepository, TicketRepository _repository)
+  {
+    equipmentScreen = _equipmentScreen;
+    equipmentRepository = _equipmentRepository;
+    repository = _repository;
+  }
+
   public string GetMenuOption()
   {
-    screenUtils.ShowMainHeader("Gestão de Chamados");
-    Console.WriteLine("1 - Cadastrar chamado");
+    ScreenUtils.ShowMainHeader("Gestão de Chamados");
+    Console.WriteLine("\n1 - Cadastrar chamado");
     Console.WriteLine("2 - Editar chamado");
     Console.WriteLine("3 - Excluir chamado");
     Console.WriteLine("4 - Visualizar chamados");
     Console.WriteLine("S - Sair");
-    screenUtils.ShowUISimpleLine();
-    Console.Write("> ");
+    Console.Write("\n> ");
 
     return Console.ReadLine()?.ToUpper()!;
   }
 
   public void Register()
   {
-    screenUtils.ShowMainHeader("Gestão de Chamados");
-    screenUtils.ShowOperationHeader("CADASTRO DE CHAMADO");
+    ScreenUtils.ShowMainHeader("Gestão de Chamados");
+    ScreenUtils.ShowOperationHeader("CADASTRO DE CHAMADO");
 
     equipmentScreen.ShowAllEquipments();
 
@@ -35,11 +40,12 @@ class TicketScreen
 
     if (newTicket == null)
     {
-      screenUtils.ShowUISimpleLine();
-      Console.WriteLine($"Não foi possível cadastrar o chamado.");
-      screenUtils.ShowUISimpleLine();
+      Console.WriteLine();
+      ScreenUtils.ShowUISimpleLine();
+      Console.WriteLine($"❌ Não foi possível cadastrar o chamado.\nO equipamento informado não foi encontrado.");
+      ScreenUtils.ShowUISimpleLine();
 
-      Console.WriteLine("Digite ENTER para continuar...");
+      Console.WriteLine("\nDigite ENTER para continuar...");
       Console.ReadLine();
 
       return;
@@ -47,18 +53,19 @@ class TicketScreen
 
     repository.Create(newTicket);
 
-    screenUtils.ShowUISimpleLine();
-    Console.WriteLine($"O registro \"{newTicket.id}\" foi cadastrado com sucesso.");
-    screenUtils.ShowUISimpleLine();
+    Console.WriteLine();
+    ScreenUtils.ShowUISimpleLine();
+    Console.WriteLine($"✅ O chamado \"{newTicket.id}\" foi cadastrado com sucesso.");
+    ScreenUtils.ShowUISimpleLine();
 
-    Console.WriteLine("Digite ENTER para continuar...");
+    Console.WriteLine("\nDigite ENTER para continuar...");
     Console.ReadLine();
   }
 
   public void Edit()
   {
-    screenUtils.ShowMainHeader("Gestão de Chamados");
-    screenUtils.ShowOperationHeader("EDIÇÃO DE CHAMADO");
+    ScreenUtils.ShowMainHeader("Gestão de Chamados");
+    ScreenUtils.ShowOperationHeader("EDIÇÃO DE CHAMADO");
 
     ShowAllTickets();
 
@@ -80,11 +87,12 @@ class TicketScreen
 
     if (newTicket == null)
     {
-      screenUtils.ShowUISimpleLine();
-      Console.WriteLine($"Não foi possível editar o chamado.");
-      screenUtils.ShowUISimpleLine();
+      Console.WriteLine();
+      ScreenUtils.ShowUISimpleLine();
+      Console.WriteLine($"❌ Não foi possível editar o chamado.");
+      ScreenUtils.ShowUISimpleLine();
 
-      Console.WriteLine("Digite ENTER para continuar...");
+      Console.WriteLine("\nDigite ENTER para continuar...");
       Console.ReadLine();
 
       return;
@@ -94,26 +102,27 @@ class TicketScreen
 
     if (success)
     {
-      screenUtils.ShowUISimpleLine();
-      Console.WriteLine($"✅ O registro \"{selectedId}\" foi editado com sucesso.");
-      screenUtils.ShowUISimpleLine();
+      Console.WriteLine();
+      ScreenUtils.ShowUISimpleLine();
+      Console.WriteLine($"✅ O chamado \"{selectedId}\" foi editado com sucesso.");
+      ScreenUtils.ShowUISimpleLine();
     }
     else
     {
-      screenUtils.ShowUISimpleLine();
-      Console.WriteLine($"Não foi possível editar o chamado \"{selectedId}\".");
-      screenUtils.ShowUISimpleLine();
+      ScreenUtils.ShowUISimpleLine();
+      Console.WriteLine($"❌ Não foi possível editar o chamado \"{selectedId}\".");
+      ScreenUtils.ShowUISimpleLine();
       return;
     }
 
-    Console.WriteLine("Digite ENTER para continuar...");
+    Console.WriteLine("\nDigite ENTER para continuar...");
     Console.ReadLine();
   }
 
   public void Delete()
   {
-    screenUtils.ShowMainHeader("Gestão de Chamados");
-    screenUtils.ShowOperationHeader("EXCLUSÃO DE CHAMADO");
+    ScreenUtils.ShowMainHeader("Gestão de Chamados");
+    ScreenUtils.ShowOperationHeader("EXCLUSÃO DE CHAMADO");
 
     ShowAllTickets();
 
@@ -133,15 +142,17 @@ class TicketScreen
 
     if (success)
     {
-      screenUtils.ShowUISimpleLine();
+      Console.WriteLine();
+      ScreenUtils.ShowUISimpleLine();
       Console.WriteLine($"✅ O chamado \"{selectedId}\" foi excluído com sucesso.");
-      screenUtils.ShowUISimpleLine();
+      ScreenUtils.ShowUISimpleLine();
     }
     else
     {
-      screenUtils.ShowUISimpleLine();
-      Console.WriteLine($"Não foi possível excluir o chamado \"{selectedId}\".");
-      screenUtils.ShowUISimpleLine();
+      Console.WriteLine();
+      ScreenUtils.ShowUISimpleLine();
+      Console.WriteLine($"❌ Não foi possível excluir o chamado \"{selectedId}\".");
+      ScreenUtils.ShowUISimpleLine();
     }
 
     Console.Write("\nDigite ENTER para continuar...");
@@ -150,8 +161,8 @@ class TicketScreen
 
   public void ShowAll()
   {
-    screenUtils.ShowMainHeader("Gestão de Chamados");
-    screenUtils.ShowOperationHeader("Visualização de Chamados");
+    ScreenUtils.ShowMainHeader("Gestão de Chamados");
+    ScreenUtils.ShowOperationHeader("VISUALIZAÇÃO DE CHAMADOS");
     ShowAllTickets();
 
     Console.Write("\nDigite ENTER para continuar...");
@@ -160,7 +171,7 @@ class TicketScreen
 
   public void ShowAllTickets()
   {
-    string line = screenUtils.GetUIDoubleLine();
+    string line = ScreenUtils.GetUIDoubleLine();
     Console.WriteLine($"\n{line}");
 
     Console.WriteLine(
@@ -202,14 +213,7 @@ class TicketScreen
 
     Equipment _equipment = equipmentRepository.FindById(selectedId);
 
-    if (_equipment == null)
-    {
-      screenUtils.ShowUISimpleLine();
-      Console.WriteLine($"Não foi possível encontrar o equipamento informado.");
-      screenUtils.ShowUISimpleLine();
-
-      return null;
-    }
+    if (_equipment == null) return null;
 
     Ticket newTicket = new Ticket
     {

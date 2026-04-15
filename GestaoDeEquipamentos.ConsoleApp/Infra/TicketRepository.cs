@@ -1,7 +1,7 @@
 using System.Security.Cryptography;
 using GestaoDeEquipamentos.ConsoleApp.Domain;
 
-class TicketRepository
+public class TicketRepository
 {
   public List<Ticket> tickets = new List<Ticket>();
   public void Create(Ticket newTicket)

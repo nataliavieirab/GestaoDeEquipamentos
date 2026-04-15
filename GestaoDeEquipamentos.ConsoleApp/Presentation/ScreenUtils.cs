@@ -1,19 +1,19 @@
 namespace GestaoDeEquipamentos.ConsoleApp.Presentation;
 
-public class ScreenUtils
+static class ScreenUtils
 {
-  public string GetMainMenuOption()
+  public static string GetMainMenuOption()
   {
     ShowMainHeader("Gestão de Equipamentos");
-    Console.WriteLine("1 - Gerenciar equipamentos");
-    Console.WriteLine("2 - Gerenciar chamados");
+    Console.WriteLine("\n1 - Gerenciar Equipamentos");
+    Console.WriteLine("2 - Gerenciar Chamados");
+    Console.WriteLine("3 - Gerenciar Fornecedores");
     Console.WriteLine("S - Sair");
-    ShowUISimpleLine();
-    Console.Write("> ");
+    Console.Write("\n> ");
     return Console.ReadLine()?.ToUpper()!;
   }
 
-  public void ShowMainHeader(string title)
+  public static void ShowMainHeader(string title)
   {
     string line = GetUIDoubleLine();
 
@@ -23,29 +23,19 @@ public class ScreenUtils
     Console.WriteLine(line);
   }
 
-  public void ShowOperationHeader(string operation)
+  public static void ShowOperationHeader(string operation)
   {
     string textoCentralizado = new string(' ', 41) + operation;
 
     Console.WriteLine($"\n{textoCentralizado}");
   }
-  // public void ShowOperationHeader(string operation)
-  // {
-  //   string linha = GetUIDoubleLine();
-  //   int largura = linha.Length;
 
-  //   int espacos = (largura - operation.Length) / 2;
-  //   string textoCentralizado = new string(' ', espacos) + operation;
-
-  //   Console.WriteLine(textoCentralizado);
-  // }
-
-  public string GetUIDoubleLine()
+  public static string GetUIDoubleLine()
   {
     return "=========================================================================================================";
   }
 
-  public void ShowUISimpleLine()
+  public static void ShowUISimpleLine()
   {
     Console.WriteLine("---------------------------------------------------------------------------------------------------------");
   }

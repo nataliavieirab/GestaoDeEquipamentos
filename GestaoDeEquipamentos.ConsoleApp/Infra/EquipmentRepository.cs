@@ -16,16 +16,16 @@ public class EquipmentRepository
     equipments.Add(newEquipment);
   }
 
-  public bool Update(string selectedId, string newName, string newManufacturer, decimal newPurchasePrice, DateTime newManufactoringDate)
+  public bool Update(string selectedId, Equipment newEquipment)
   {
     Equipment equipment = equipments.Find(e => e.id == selectedId)!;
 
     if (equipment == null) return false;
 
-    equipment.name = newName;
-    equipment.manufacturer = newManufacturer;
-    equipment.purchasePrice = newPurchasePrice;
-    equipment.manufactoringDate = newManufactoringDate;
+    equipment.name = newEquipment.name;
+    equipment.manufacturer = newEquipment.manufacturer;
+    equipment.purchasePrice = newEquipment.purchasePrice;
+    equipment.manufacturingDate = newEquipment.manufacturingDate;
 
     return true;
   }
@@ -34,8 +34,7 @@ public class EquipmentRepository
   {
     Equipment equipment = equipments.Find(e => e.id == equipmentId)!;
 
-    if (equipment == null)
-      return false;
+    if (equipment == null) return false;
 
     equipments.Remove(equipment);
 

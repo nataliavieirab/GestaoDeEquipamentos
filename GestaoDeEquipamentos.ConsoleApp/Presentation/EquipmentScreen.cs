@@ -4,57 +4,55 @@ namespace GestaoDeEquipamentos.ConsoleApp.Presentation;
 
 public class EquipmentScreen
 {
-  public EquipmentRepository? repository;
-  public ScreenUtils? screenUtils;
+  public EquipmentRepository repository;
+  public ManufacturerScreen manufacturerScreen;
+  public ManufacturerRepository manufacturerRepository;
+
+  public EquipmentScreen(EquipmentRepository _repository, ManufacturerScreen _manufacturerScreen, ManufacturerRepository _manufacturerRepository)
+  {
+    repository = _repository;
+    manufacturerScreen = _manufacturerScreen;
+    manufacturerRepository = _manufacturerRepository;
+  }
 
   public string GetMenuOption()
   {
-    screenUtils!.ShowMainHeader("Gestão de Equipamentos");
-    Console.WriteLine("1 - Cadastrar equipamento");
+    ScreenUtils.ShowMainHeader("Gestão de Equipamentos");
+    Console.WriteLine("\n1 - Cadastrar equipamento");
     Console.WriteLine("2 - Editar equipamento");
     Console.WriteLine("3 - Excluir equipamento");
     Console.WriteLine("4 - Visualizar equipamentos");
     Console.WriteLine("S - Sair");
-    screenUtils.ShowUISimpleLine();
-    Console.Write("> ");
+    Console.Write("\n> ");
 
     return Console.ReadLine()?.ToUpper()!;
   }
 
   public void Register()
   {
-    screenUtils.ShowMainHeader("Gestão de Equipamentos");
-    screenUtils.ShowOperationHeader("Cadastro de Equipamento");
+    ScreenUtils.ShowMainHeader("Gestão de Equipamentos");
+    ScreenUtils.ShowOperationHeader("CADASTRO DE EQUIPAMENTO");
 
-    Equipment newEquipment = new Equipment();
+    Equipment? newEquipment = GetEquipmentData();
 
-    do
+    if (newEquipment == null)
     {
-      Console.Write(">> Digite o nome do equipamento: ");
-      newEquipment.name = Console.ReadLine();
+      Console.WriteLine();
+      ScreenUtils.ShowUISimpleLine();
+      Console.WriteLine($"❌ Não foi possível encontrar o fabricante informado.");
+      ScreenUtils.ShowUISimpleLine();
 
-      if (isStringValid(newEquipment.name!)) break;
-    } while (true);
+      Console.WriteLine("\nDigite ENTER para continuar...");
+      Console.ReadLine();
+      return;
+    }
 
-    do
-    {
-      Console.Write(">> Digite o fabricante do equipamento: ");
-      newEquipment.manufacturer = Console.ReadLine();
+    repository!.Create(newEquipment);
 
-      if (isStringValid(newEquipment.manufacturer!)) break;
-    } while (true);
-
-    Console.Write(">> Digite o preço de aquisição do equipamento: ");
-    newEquipment.purchasePrice = Convert.ToDecimal(Console.ReadLine());
-
-    Console.Write(">> Digite a data de fabricação do equipamento: ");
-    newEquipment.manufactoringDate = Convert.ToDateTime(Console.ReadLine());
-
-    repository.Create(newEquipment);
-
-    screenUtils.ShowUISimpleLine();
+    Console.WriteLine();
+    ScreenUtils.ShowUISimpleLine();
     Console.WriteLine($"✅ O equipamento \"{newEquipment.id}\" foi cadastrado com sucesso.");
-    screenUtils.ShowUISimpleLine();
+    ScreenUtils.ShowUISimpleLine();
 
     Console.Write("\nDigite ENTER para continuar...");
     Console.ReadLine();
@@ -62,12 +60,12 @@ public class EquipmentScreen
 
   public void Edit()
   {
-    screenUtils.ShowMainHeader("Gestão de Equipamentos");
-    screenUtils.ShowOperationHeader("Edição de Equipamento");
+    ScreenUtils.ShowMainHeader("Gestão de Equipamentos");
+    ScreenUtils.ShowOperationHeader("EDIÇÃO DE EQUIPAMENTO");
 
     ShowAllEquipments();
 
-    string? selectedId, name, manufacturer;
+    string? selectedId;
 
     do
     {
@@ -78,41 +76,35 @@ public class EquipmentScreen
 
     } while (true);
 
-    do
+    Equipment? newEquipment = GetEquipmentData();
+
+    if (newEquipment == null)
     {
-      Console.Write(">> Digite o nome do equipamento: ");
-      name = Console.ReadLine();
+      Console.WriteLine();
+      ScreenUtils.ShowUISimpleLine();
+      Console.WriteLine($"❌ Não foi possível encontrar o fabricante informado.");
+      ScreenUtils.ShowUISimpleLine();
 
-      if (isStringValid(name!)) break;
-    } while (true);
+      Console.WriteLine("\nDigite ENTER para continuar...");
+      Console.ReadLine();
+      return;
+    }
 
-    do
-    {
-      Console.Write(">> Digite o fabricante do equipamento: ");
-      manufacturer = Console.ReadLine();
-
-      if (isStringValid(manufacturer!)) break;
-    } while (true);
-
-    Console.Write(">> Digite o preço de aquisição do equipamento: ");
-    decimal purchasePrice = Convert.ToDecimal(Console.ReadLine());
-
-    Console.Write(">> Digite a data de fabricação do equipamento: ");
-    DateTime manufactoringDate = Convert.ToDateTime(Console.ReadLine());
-
-    bool success = repository.Update(selectedId, name!, manufacturer!, purchasePrice, manufactoringDate);
+    bool success = repository.Update(selectedId, newEquipment);
 
     if (success)
     {
-      screenUtils.ShowUISimpleLine();
-      Console.WriteLine($"✅ O registro \"{selectedId}\" foi editado com sucesso.");
-      screenUtils.ShowUISimpleLine();
+      Console.WriteLine();
+      ScreenUtils.ShowUISimpleLine();
+      Console.WriteLine($"✅ O equipamento \"{selectedId}\" foi editado com sucesso.");
+      ScreenUtils.ShowUISimpleLine();
     }
     else
     {
-      screenUtils.ShowUISimpleLine();
-      Console.WriteLine($"Não foi possível encontrar o equipamento informado.");
-      screenUtils.ShowUISimpleLine();
+      Console.WriteLine();
+      ScreenUtils.ShowUISimpleLine();
+      Console.WriteLine($"❌ Não foi possível encontrar o equipamento informado.");
+      ScreenUtils.ShowUISimpleLine();
     }
 
     Console.Write("\nDigite ENTER para continuar...");
@@ -121,8 +113,8 @@ public class EquipmentScreen
 
   public void Delete()
   {
-    screenUtils.ShowMainHeader("Gestão de Equipamentos");
-    screenUtils.ShowOperationHeader("Exclusão de Equipamento");
+    ScreenUtils.ShowMainHeader("Gestão de Equipamentos");
+    ScreenUtils.ShowOperationHeader("EXCLUSÃO DE EQUIPAMENTO");
 
     ShowAllEquipments();
 
@@ -141,15 +133,17 @@ public class EquipmentScreen
 
     if (success)
     {
-      screenUtils.ShowUISimpleLine();
+      Console.WriteLine();
+      ScreenUtils.ShowUISimpleLine();
       Console.WriteLine($"✅ O registro \"{selectedId}\" foi excluído com sucesso.");
-      screenUtils.ShowUISimpleLine();
+      ScreenUtils.ShowUISimpleLine();
     }
     else
     {
-      screenUtils.ShowUISimpleLine();
-      Console.WriteLine($"Não foi possível encontar o registro \"{selectedId}\".");
-      screenUtils.ShowUISimpleLine();
+      Console.WriteLine();
+      ScreenUtils.ShowUISimpleLine();
+      Console.WriteLine($"❌ Não foi possível encontar o registro \"{selectedId}\".");
+      ScreenUtils.ShowUISimpleLine();
     }
 
     Console.Write("\nDigite ENTER para continuar...");
@@ -158,8 +152,8 @@ public class EquipmentScreen
 
   public void ShowAll()
   {
-    screenUtils.ShowMainHeader("Gestão de Equipamentos");
-    screenUtils.ShowOperationHeader("Visualização de Equipamentos");
+    ScreenUtils.ShowMainHeader("Gestão de Equipamentos");
+    ScreenUtils.ShowOperationHeader("VISUALIZAÇÃO DE EQUIPAMENTOS");
     ShowAllEquipments();
 
     Console.Write("\nDigite ENTER para continuar...");
@@ -168,7 +162,7 @@ public class EquipmentScreen
 
   public void ShowAllEquipments()
   {
-    string line = screenUtils.GetUIDoubleLine();
+    string line = ScreenUtils.GetUIDoubleLine();
     Console.WriteLine($"\n{line}");
 
     Console.WriteLine(
@@ -186,11 +180,54 @@ public class EquipmentScreen
 
       Console.WriteLine(
           "{0, -7} | {1, -15} | {2, -15} | {3, -22} | {4, -10}",
-          e.id, e.name, e.manufacturer, e.purchasePrice.ToString("C2"), e.manufactoringDate.ToShortDateString()
+          e.id, e.name, e.manufacturer?.name, e.purchasePrice.ToString("C2"), e.manufacturingDate.ToShortDateString()
       );
     }
 
     Console.WriteLine(line);
+  }
+
+  public Equipment? GetEquipmentData()
+  {
+    Equipment newEquipment = new Equipment();
+
+    do
+    {
+      Console.Write("\n>> Digite o nome do equipamento: ");
+      newEquipment.name = Console.ReadLine();
+
+      if (isStringValid(newEquipment.name!)) break;
+
+    } while (true);
+
+    manufacturerScreen!.ShowAllManufacturers();
+
+    string? selectedId;
+
+    do
+    {
+      Console.Write("\n>> Digite o id do fabricante: ");
+      selectedId = Console.ReadLine();
+
+      if (!string.IsNullOrWhiteSpace(selectedId) && selectedId.Length == 7) break;
+
+    } while (true);
+
+    if (manufacturerRepository == null) return null;
+
+    Manufacturer? selectedManufacturer = manufacturerRepository.FindById(selectedId);
+
+    if (selectedManufacturer == null) return null;
+
+    newEquipment.manufacturer = selectedManufacturer;
+
+    Console.Write(">> Digite o preço de aquisição do equipamento: ");
+    newEquipment.purchasePrice = Convert.ToDecimal(Console.ReadLine());
+
+    Console.Write(">> Digite a data de fabricação do equipamento: ");
+    newEquipment.manufacturingDate = Convert.ToDateTime(Console.ReadLine());
+
+    return newEquipment;
   }
 
   bool isStringValid(string s)
@@ -200,5 +237,4 @@ public class EquipmentScreen
 
     return isStringFilled && isStringLengthValid;
   }
-
 }
